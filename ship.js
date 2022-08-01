@@ -3,9 +3,12 @@ const Ship = (length) => {
   const hit = (x) => {
     hits.push(x);
   };
+  const getHits = () => hits;
   const isSunk = () => hits.length === length;
   const getName = () => 'ship';
   return {
+    length,
+    getHits,
     hit,
     isSunk,
     getName,
@@ -39,16 +42,39 @@ const Gameboard = () => {
   };
 
   const checkShips = (method) => {
-    // if (hit) {
-    //   const shipSearch = board.filter((e) => typeof e === 'string');
-    //   return shipSearch.every((e) => `${e}.${method}()`);
-    // }
     const shipSearch = board.filter((e) => typeof e !== 'string');
-    return shipSearch.every((e) => e[method]());
+    return shipSearch.map(method);
   };
+
   const viewBoard = () => board.filter((e) => e);
   return { board, checkHit, placeShip, viewBoard, receiveAttack, checkShips };
 };
 
 module.exports.Ship = Ship;
 module.exports.Gameboard = Gameboard;
+
+const ship1 = Ship(3);
+const ship2 = Ship(2);
+const board = Gameboard();
+board.placeShip(ship1, [0, 1, 2]);
+board.placeShip(ship1, [3, 4]);
+
+const attackShip = (arr) => {
+  arr.forEach((e) => {
+    board.receiveAttack(e);
+    if (board.checkHit()) {
+      board.board[e].hit(e);
+    }
+  });
+};
+attackShip([0, 1, 2]);
+const secondShipSingle = 4;
+board.receiveAttack(secondShipSingle);
+if (board.checkHit()) {
+  board.board[secondShipSingle].hit(secondShipSingle);
+}
+const result = board.checkShips((e) => e.getHits());
+console.log(result);
+console.log(ship1.length);
+console.log(ship2.length);
+console.log(ship2.hits);

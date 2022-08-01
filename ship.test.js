@@ -1,10 +1,10 @@
 const mod = require('./ship.js');
 
-test('single ship sunk test', () => {
-  const ship1 = mod.Ship(1);
-  ship1.hit(0);
-  expect(ship1.isSunk()).toStrictEqual(true);
-});
+// test('single ship sunk test', () => {
+//   const ship1 = mod.Ship(1);
+//   ship1.hit(0);
+//   expect(ship1.isSunk()).toStrictEqual(true);
+// });
 // ! Passes
 // test('sunk placement test', () => {
 //   const ship1 = mod.Ship(1);
@@ -50,6 +50,77 @@ test('multiple length ship hit test', () => {
   expect(board.board[secondAttack].isSunk()).toStrictEqual(false);
 });
 
+test('multiple length ship hit test using func()', () => {
+  const ship1 = mod.Ship(3);
+  const board = mod.Gameboard();
+  board.placeShip(ship1, [0, 1, 2]);
+  const attackShip = (arr) => {
+    arr.forEach((e) => {
+      board.receiveAttack(e);
+      if (board.checkHit()) {
+        board.board[e].hit(e);
+      }
+    });
+  };
+  attackShip([0, 1]);
+  expect(board.board[1].isSunk()).toStrictEqual(false);
+});
+test('multiple length ship sunk test using func()', () => {
+  const ship1 = mod.Ship(3);
+  const board = mod.Gameboard();
+  board.placeShip(ship1, [0, 1, 2]);
+  const attackShip = (arr) => {
+    arr.forEach((e) => {
+      board.receiveAttack(e);
+      if (board.checkHit()) {
+        board.board[e].hit(e);
+      }
+    });
+  };
+  attackShip([0, 1, 2]);
+  expect(board.board[1].isSunk()).toStrictEqual(true);
+});
+
+test('single ship sink test', () => {
+  const ship1 = mod.Ship(3);
+  const ship2 = mod.Ship(2);
+  const board = mod.Gameboard();
+  board.placeShip(ship1, [0, 1, 2]);
+
+  const attackShip = (arr) => {
+    arr.forEach((e) => {
+      board.receiveAttack(e);
+      if (board.checkHit()) {
+        board.board[e].hit(e);
+      }
+    });
+  };
+  attackShip([0, 1, 2]);
+  expect(board.checkShips((e) => e.isSunk())).toStrictEqual([true, true, true]);
+});
+
+test('single ship sink test', () => {
+  const ship1 = mod.Ship(3);
+  const ship2 = mod.Ship(2);
+  const board = mod.Gameboard();
+  board.placeShip(ship1, [0, 1, 2]);
+
+  const attackShip = (arr) => {
+    arr.forEach((e) => {
+      board.receiveAttack(e);
+      if (board.checkHit()) {
+        board.board[e].hit(e);
+      }
+    });
+  };
+  attackShip([0, 1, 2]);
+  expect(board.checkShips((e) => e.getHits())).toStrictEqual([
+    true,
+    true,
+    true,
+  ]);
+});
+
 test('multiple ship game over test fail', () => {
   const ship1 = mod.Ship(3);
   const ship2 = mod.Ship(2);
@@ -65,11 +136,36 @@ test('multiple ship game over test fail', () => {
       }
     });
   };
+
   attackShip([0, 1, 2]);
   const secondShipSingle = 4;
   board.receiveAttack(secondShipSingle);
   if (board.checkHit()) {
     board.board[secondShipSingle].hit(secondShipSingle);
   }
-  expect(board.checkShips('isSunk')).toStrictEqual(false);
+  expect(board.checkShips((e) => e.getHits())).toStrictEqual([
+    true,
+    true,
+    true,
+  ]);
 });
+
+// test('multiple ship game over test succeed', () => {
+//   const ship1 = mod.Ship(3);
+//   const ship2 = mod.Ship(2);
+//   const board = mod.Gameboard();
+//   board.placeShip(ship1, [0, 1, 2]);
+//   board.placeShip(ship1, [3, 4]);
+
+//   const attackShip = (arr) => {
+//     arr.forEach((e) => {
+//       board.receiveAttack(e);
+//       if (board.checkHit()) {
+//         board.board[e].hit(e);
+//       }
+//     });
+//   };
+//   attackShip([0, 1, 2]);
+//   attackShip([3, 4]);
+//   expect(board.checkShips((e) => e.isSunk())).toStrictEqual(true);
+// });

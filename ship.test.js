@@ -1,4 +1,4 @@
-const mod = require('./ship.js');
+// const mod = require('./ship.js');
 
 // test('attack one ship sunk test', () => {
 //   const ship1 = mod.Ship(2);
@@ -54,7 +54,7 @@ const mod = require('./ship.js');
 //   expect(board.board[attack].isSunk()).toStrictEqual(true);
 // });
 
-test('no object on board', () => {
-  const board = mod.Gameboard;
-  expect(board.checkShips()).toStrictEqual(true);
-});
+// test('no object on board', () => {
+//   const board = mod.Gameboard;
+//   expect(board.checkShips()).toStrictEqual(true);
+// });

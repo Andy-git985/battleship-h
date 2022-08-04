@@ -9,9 +9,6 @@ const Gameboard = (() => {
   const receiveAttack = (x) => {
     return board[x] !== '' ? hits.push(x) : miss.push(x);
   };
-  // const checkShips = () => {
-  //   return board.every((e) => typeof e === 'string');
-  // };
   const allShipsSunk = () => {
     return totalShipUnits() === allHits();
   };
@@ -24,7 +21,6 @@ const Gameboard = (() => {
     misses,
     placeShip,
     receiveAttack,
-    // checkShips,
     allShipsSunk,
     totalShipUnits,
   };

@@ -1,4 +1,3 @@
-const Ship = require('./ship.js');
 const Gameboard = require('./gameboard.js');
 
 // const Ship = (length) => {
@@ -16,7 +15,7 @@ const Gameboard = require('./gameboard.js');
 //     board[coordinate] = ship;
 //   };
 //   const receiveAttack = (x) => {
-//     return board[x] !== '';
+//     return board[x] !== '' ? hits.push(x) : miss.push(x);
 //   };
 //   const checkShips = () => {
 //     return board.every((e) => typeof e === 'string');
@@ -29,6 +28,5 @@ const Player = () => {
   const attack = (enemy, coordinate) => enemy.receiveAttack(coordinate);
   return Object.assign({}, prototype, { attack });
 };
-
-console.log(Gameboard);
+console.log(Player);
 module.exports = Player;

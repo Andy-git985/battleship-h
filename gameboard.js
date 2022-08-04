@@ -6,7 +6,7 @@ const Gameboard = (() => {
     board[coordinate] = ship;
   };
   const receiveAttack = (x) => {
-    return board[x] !== '';
+    return board[x] !== '' ? hits.push(x) : miss.pudh(x);
   };
   const checkShips = () => {
     return board.every((e) => typeof e === 'string');

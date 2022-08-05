@@ -11,7 +11,6 @@ const create = (() => {
       block.setAttribute(`data-index`, i);
       elem.appendChild(block);
     }
-    console.log(`${elem}`);
   };
   const generateGridTemplate = (elem) => {
     const numOfRowCol = Math.sqrt(number);

@@ -8,9 +8,10 @@ const create = (() => {
     for (let i = 0; i < number; i++) {
       const block = document.createElement('div');
       block.classList.add('block');
-      block.setAttribute('data-index', i);
+      block.setAttribute(`data-index`, i);
       elem.appendChild(block);
     }
+    console.log(`${elem}`);
   };
   const generateGridTemplate = (elem) => {
     const numOfRowCol = Math.sqrt(number);
@@ -49,14 +50,56 @@ const events = (() => {
 
 events.init();
 
-const ship1 = Ship(1);
-const ship2 = Ship(2);
-const player1 = Player();
-const player2 = Player();
-player2.placeShip(ship1, 0);
-player2.placeShip(ship2, 1);
-player2.placeShip(ship2, 2);
-player1.attack(player2, 0);
-player1.attack(player2, 1);
-player1.attack(player2, 2);
-console.log(player2.allShipsSunk());
+// const ship1 = Ship(1);
+// const ship2 = Ship(2);
+// const player1 = Player();
+// const player2 = Player();
+// player2.placeShip(ship1, 0);
+// player2.placeShip(ship2, 1);
+// player2.placeShip(ship2, 2);
+// player1.attack(player2, 0);
+// player1.attack(player2, 1);
+// player1.attack(player2, 2);
+// console.log(player2.allShipsSunk());
+
+const game = (() => {
+  const player1 = Player();
+  const player2 = Player();
+  const init = () => {
+    const ship1 = Ship(1);
+    const ship2 = Ship(1);
+    const ship3 = Ship(1);
+    player1.placeShip(ship1, 0);
+    player2.placeShip(ship2, 0);
+    player2.placeShip(ship2, 1);
+  };
+  let current = player1;
+  let enemy = player2;
+  const switchSides = () => {
+    if ((current = player1)) {
+      current = player2;
+      enemy = player1;
+    } else if ((current = player2)) {
+      current = player1;
+      enemy = player2;
+    }
+  };
+  const turn = () => {
+    let attack = prompt('Please enter an attack coordinate');
+    while (current.attack(enemy, Number(attack))) {
+      attack = prompt('Please enter an attack coordinate');
+      current.attack(enemy, Number(attack));
+    }
+    console.log(current.hits);
+    console.log(current.misses);
+    switchSides();
+  };
+  return { init, turn };
+})();
+
+game.init();
+game.turn();
+
+// var spam = 'bacon';
+// var test = { spam };
+// console.log(test, Object.keys(test)[0]);

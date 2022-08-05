@@ -12,8 +12,10 @@ const Gameboard = (() => {
   const receiveAttack = (x) => {
     if (board[x] !== '') {
       hits.push(x);
+      return true;
     } else {
       miss.push(x);
+      return false;
     }
   };
   const allShipsSunk = () => {

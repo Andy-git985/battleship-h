@@ -1,6 +1,7 @@
 .flex {
   display: flex;
   gap: 5rem;
+  justify-content: center;
 }
 
 body {
@@ -14,8 +15,8 @@ body {
 
 .grid {
   display: grid;
-  width: 720px;
-  height: 720px;
+  width: 22.5rem;
+  height: 22.5rem;
 }
 
 .block {

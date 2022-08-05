@@ -12,6 +12,6 @@ test('2 players hit test', () => {
   player2.placeShip(ship2, 2);
   player1.attack(player2, 0);
   player1.attack(player2, 1);
-  player1.attack(player2, 2);
-  expect(player2.allShipsSunk()).toStrictEqual(true);
+
+  expect(player1.attack(player2, 2)).toStrictEqual(true);
 });

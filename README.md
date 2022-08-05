@@ -6,10 +6,14 @@ Unit testing practice with battleship game.
 
 ## How It's Made:
 
-**Tech used:** JS, JEST
+**Tech used:**
+HTML, CSS, JS, JEST
 
 ## Optimizations
 
 ## Lessons Learned:
+
+Unit Testing with Jests.
+Import Export ES6 Modules in browser.
 
 ## Examples:

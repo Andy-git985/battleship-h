@@ -84,23 +84,26 @@ const game = (() => {
     }
   };
   const turn = () => {
+    alert(`${current.name}'s turn`)
     let attack = prompt('Please enter an attack coordinate');
     while (current.attack(enemy, Number(attack))) {
       attack = prompt('Please enter an attack coordinate');
-      current.attack(enemy, Number(attack));
     }
     console.log(current.name, current.hits);
     console.log(current.name, current.misses);
     switchSides();
   };
   const loop = () => {
-    console.log(current);
+    while (!current.allShipsSunk()) {
+      turn()
+    }
+    alert('Game Over!')
   };
-  return { init, turn };
+  return { init, turn , loop};
 })();
 
 game.init();
-game.turn();
+game.loop();
 
 // var spam = 'bacon';
 // var test = { spam };

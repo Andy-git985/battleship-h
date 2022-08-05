@@ -15,5 +15,6 @@ HTML, CSS, JS, JEST
 
 Unit Testing with Jests.
 Import Export ES6 Modules in browser.
+Need to use factory function for different instances, not modules.
 
 ## Examples:

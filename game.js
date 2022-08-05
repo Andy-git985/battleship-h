@@ -11,7 +11,7 @@ const Ship = (length) => {
   return { length, hits, hit, isSunk };
 };
 
-const Gameboard = (() => {
+const Gameboard = () => {
   const board = Array(9).fill('');
   const hits = [];
   const allHits = () => hits.length;
@@ -43,6 +43,6 @@ const Gameboard = (() => {
     allShipsSunk,
     totalShipUnits,
   };
-})();
+};
 
 export { Player, Ship, Gameboard };

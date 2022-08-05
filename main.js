@@ -94,6 +94,9 @@ const game = (() => {
     console.log(current.name, current.misses);
     switchSides();
   };
+  const loop = () => {
+    console.log(current);
+  };
   return { init, turn };
 })();
 

@@ -5,5 +5,5 @@ const Player = () => {
   const attack = (enemy, coordinate) => enemy.receiveAttack(coordinate);
   return Object.assign({}, prototype, { attack });
 };
-console.log(Player);
+
 module.exports = Player;

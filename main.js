@@ -63,8 +63,8 @@ events.init();
 // console.log(player2.allShipsSunk());
 
 const game = (() => {
-  const player1 = Player();
-  const player2 = Player();
+  const player1 = Player('Player 1');
+  const player2 = Player('Player 2');
   const init = () => {
     const ship1 = Ship(1);
     const ship2 = Ship(1);
@@ -90,8 +90,8 @@ const game = (() => {
       attack = prompt('Please enter an attack coordinate');
       current.attack(enemy, Number(attack));
     }
-    console.log(current.hits);
-    console.log(current.misses);
+    console.log(current.name, current.hits);
+    console.log(current.name, current.misses);
     switchSides();
   };
   return { init, turn };

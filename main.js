@@ -49,8 +49,10 @@ const events = (() => {
       b.addEventListener('click', (e) => {
         const attacker = game.player2;
         const receiver = game.player2;
-        const coordinate = e.target.dataset.index;
-        game.attack(attacker, receiver, coordinate);
+        const coordinate = Number(e.target.dataset.index);
+        console.log(coordinate);
+        game.attack(coordinate);
+        // game.attack(attacker, receiver, coordinate);
         // game.player2.attack(game.player1, Number(e.target.dataset.index));
       })
     );
@@ -61,8 +63,10 @@ const events = (() => {
       b.addEventListener('click', (e) => {
         const attacker = game.player1;
         const receiver = game.player1;
-        const coordinate = e.target.dataset.index;
-        game.attack(attacker, receiver, coordinate);
+        const coordinate = Number(e.target.dataset.index);
+        console.log(coordinate);
+        game.attack(coordinate);
+        // game.attack(attacker, receiver, coordinate);
         // game.player1.attack(game.player2, Number(e.target.dataset.index));
       })
     );
@@ -88,6 +92,8 @@ const events = (() => {
   };
 
   return {
+    board1,
+    board2,
     // blocks,
     init,
   };
@@ -105,6 +111,8 @@ const game = (() => {
     // player1.placeShip(ship1, 1);
     player2.placeShip(ship2, 0);
     // player2.placeShip(ship2, 1);
+    // ! Label to indicate player's turn
+    dom.turn(current);
   };
   let current = player1;
   let enemy = player2;
@@ -118,33 +126,36 @@ const game = (() => {
       enemy = player2;
     }
   };
-  const attack = (attacker, receiver, coordinate) => {
-    return attacker.attack(receiver, coordinate);
+  const attack = (coordinate) => {
+    turn(coordinate);
   };
   // ! Individual player turn
-  const turn = async () => {
-    dom.turn(current);
+  const turn = (coordinate) => {
+    console.log(current.name, current.totalShipUnits());
+    console.log(enemy.name, enemy.totalShipUnits());
     // let attack = prompt('Please enter an attack coordinate');
     // if (current.attack(enemy, coordinate)) {
-    if (await attack(current, enemy, coordinate)) {
-      console.log(`Hit! ${enemy.name}'s hits:`, enemy.hits);
+    if (current.attack(enemy, coordinate)) {
+      console.log(`HIT!!! ${enemy.name}'s direct hits:`, enemy.hits);
+      console.log(enemy.allShipsSunk());
       if (enemy.allShipsSunk()) {
         playing = false;
+        over(dom);
         return;
       }
       // attack = prompt('Please enter an attack coordinate');
     } else {
-      console.log(`Miss ${enemy.name}'s misses:`, enemy.misses);
+      console.log(`MISS!!! ${enemy.name}'s empty spots:`, enemy.misses);
     }
     switchSides();
   };
   // ! Main game loop
-  const loop = () => {
-    while (playing) {
-      turn(coordinate);
-    }
-    over(dom);
-  };
+  // const loop = () => {
+  //   while (playing) {
+  //     turn(coordinate);
+  //   }
+  //   over(dom);
+  // };
   // ! Endgame
   const over = (module) => {
     module.winner(current);
@@ -153,5 +164,4 @@ const game = (() => {
 })();
 
 game.init();
-game.turn();
 // game.loop();

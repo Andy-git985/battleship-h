@@ -38,6 +38,52 @@ const dom = (() => {
   return { winner };
 })();
 
+const events = (() => {
+  // const board1 = () => {
+  //   const playerOneBlocks = document.querySelectorAll('#board1 .block');
+  //   playerOneBlocks.forEach((b) =>
+  //     b.addEventListener('click', (e) => {
+  //       game.player2.attack(game.player1, Number(e.target.dataset.index));
+  //     })
+  //   );
+  // };
+  // const board2 = () => {
+  //   const playerTwoBlocks = document.querySelectorAll('#board2 .block');
+  //   playerTwoBlocks.forEach((b) =>
+  //     b.addEventListener('click', (e) => {
+  //       game.player1.attack(game.player2, Number(e.target.dataset.index));
+  //     })
+  //   );
+  // };
+  const blocks = () => {
+    const blocks = document.querySelectorAll('.block');
+    blocks.forEach((b) =>
+      b.addEventListener('click', (e) => {
+        game.turn(Number(e.target.dataset.index));
+      })
+    );
+  };
+  const refresh = () => {
+    const refresh = document.querySelector('#refresh');
+    refresh.addEventListener('click', () => window.location.reload());
+  };
+
+  const init = () => {
+    // board1();
+    // board2();
+    blocks();
+    refresh();
+  };
+
+  return {
+    blocks,
+    init,
+  };
+})();
+// const playerOneBlocks = document.querySelectorAll('#board1 .block');
+// console.log(playerOneBlocks);
+events.init();
+
 const game = (() => {
   const player1 = Player('Player 1');
   const player2 = Player('Player 2');
@@ -65,73 +111,32 @@ const game = (() => {
   const turn = (coordinate) => {
     alert(`${current.name}'s turn`);
     // let attack = prompt('Please enter an attack coordinate');
-    while (current.attack(enemy, coordinate)) {
+    console.log(coordinate);
+    if (current.attack(enemy, coordinate)) {
+      console.log(`${current.name}'s hits:`, current.hits);
       if (enemy.allShipsSunk()) {
         playing = false;
         return;
       }
       // attack = prompt('Please enter an attack coordinate');
     }
+    console.log(`${current.name}'s misses:`, current.misses);
     switchSides();
   };
   // ! Main game loop
-  const loop = () => {
-    while (playing) {
-      turn(coordinate);
-    }
-    over(dom);
-  };
+  // const loop = () => {
+  //   while (playing) {
+  //     turn(coordinate);
+  //   }
+  //   over(dom);
+  // };
   // ! Endgame
   const over = (module) => {
     module.winner(current);
   };
-  return { player1, player2, init, turn, loop };
+  return { init, turn };
 })();
-
-const events = (() => {
-  // const board1 = () => {
-  //   const playerOneBlocks = document.querySelectorAll('#board1 .block');
-  //   playerOneBlocks.forEach((b) =>
-  //     b.addEventListener('click', (e) => {
-  //       game.player2.attack(game.player1, Number(e.target.dataset.index));
-  //     })
-  //   );
-  // };
-  // const board2 = () => {
-  //   const playerTwoBlocks = document.querySelectorAll('#board2 .block');
-  //   playerTwoBlocks.forEach((b) =>
-  //     b.addEventListener('click', (e) => {
-  //       game.player1.attack(game.player2, Number(e.target.dataset.index));
-  //     })
-  //   );
-  // };
-  const blocks = () => {
-    const blocks = document.querySelectorAll('.block');
-    blocks.forEach((b) =>
-      b.addEventListener('click', (e) => {
-        game.turn(coordinate);
-      })
-    );
-  };
-  const refresh = () => {
-    const refresh = document.querySelector('#refresh');
-    refresh.addEventListener('click', () => window.location.reload());
-  };
-
-  const init = () => {
-    // board1();
-    // board2();
-    blocks();
-    refresh();
-  };
-
-  return {
-    init,
-  };
-})();
-// const playerOneBlocks = document.querySelectorAll('#board1 .block');
-// console.log(playerOneBlocks);
-events.init();
 
 game.init();
-game.loop();
+game.turn();
+// game.loop();

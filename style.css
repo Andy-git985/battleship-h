@@ -8,6 +8,13 @@ body {
   box-sizing: border-box;
 }
 
+.game-info {
+  padding-inline: 2em;
+  margin: 0 auto 5rem;
+  max-width: 60rem;
+  text-align: center;
+}
+
 .container {
   outline: 1px solid black;
   padding: 1rem;

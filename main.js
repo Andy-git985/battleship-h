@@ -39,9 +39,15 @@ const events = (() => {
       })
     );
   };
+  const refresh = () => {
+    const refresh = document.querySelector('#refresh');
+    refresh.addEventListener('click', () => window.location.reload());
+  };
   const init = () => {
     blocks();
+    refresh();
   };
+
   return {
     init,
   };
@@ -61,48 +67,60 @@ events.init();
 // player1.attack(player2, 2);
 // console.log(player2.allShipsSunk());
 
+const dom = (() => {
+  const winner = (player) => {
+    const msg = document.querySelector('#msg');
+    msg.innerHTML = `${player.name} is the winner`;
+  };
+  return { winner };
+})();
+
 const game = (() => {
   const player1 = Player('Player 1');
   const player2 = Player('Player 2');
   const init = () => {
     const ship1 = Ship(1);
     const ship2 = Ship(1);
-    const ship3 = Ship(1);
     player1.placeShip(ship1, 0);
     player2.placeShip(ship2, 0);
-    player2.placeShip(ship2, 1);
   };
   let current = player1;
   let enemy = player2;
+  let playing = true;
   const switchSides = () => {
-    if ((current = player1)) {
+    if (current === player1) {
       current = player2;
       enemy = player1;
-    } else if ((current = player2)) {
+    } else if (current === player2) {
       current = player1;
       enemy = player2;
     }
   };
+  // ! Individual player turn
   const turn = () => {
     alert(`${current.name}'s turn`);
+    console.log('current', current.name);
     let attack = prompt('Please enter an attack coordinate');
-    while (current.attack(enemy, Number(attack))) {
-      attack = prompt('Please enter an attack coordinate');
-      console.log(current.name, 'current hits', current.hits);
-      console.log('Player1 hits class', player1.hits);
-      console.log('Player2 hits class', player2.hits);
-      console.log(current.name, 'current misses', current.misses);
+    if (current.attack(enemy, Number(attack))) {
+      if (enemy.allShipsSunk()) {
+        playing = false;
+        return;
+      }
     }
-
     switchSides();
   };
+  // ! Main game loop
   const loop = () => {
-    while (!current.allShipsSunk()) {
+    while (playing) {
       turn();
     }
-    alert('Game Over!');
+    over(dom);
   };
-  return { init, turn, loop };
+  // ! Endgame
+  const over = (module) => {
+    module.winner(current);
+  };
+  return { init, turn, loop, switchSides };
 })();
 
 game.init();

@@ -31,11 +31,19 @@ const create = (() => {
 create.init();
 
 const events = (() => {
-  const blocks = () => {
-    const blocks = document.querySelectorAll('.block');
-    blocks.forEach((b) =>
+  const board1 = () => {
+    const playerOneBlocks = document.querySelectorAll('#board1 .block');
+    playerOneBlocks.forEach((b) =>
       b.addEventListener('click', (e) => {
-        console.log(e.target.dataset.index);
+        console.log('player1', e.target.dataset.index);
+      })
+    );
+  };
+  const board2 = () => {
+    const playerTwoBlocks = document.querySelectorAll('#board2 .block');
+    playerTwoBlocks.forEach((b) =>
+      b.addEventListener('click', (e) => {
+        console.log('player2', e.target.dataset.index);
       })
     );
   };
@@ -44,7 +52,8 @@ const events = (() => {
     refresh.addEventListener('click', () => window.location.reload());
   };
   const init = () => {
-    blocks();
+    board1();
+    board2();
     refresh();
   };
 
@@ -52,7 +61,8 @@ const events = (() => {
     init,
   };
 })();
-
+// const playerOneBlocks = document.querySelectorAll('#board1 .block');
+// console.log(playerOneBlocks);
 events.init();
 
 const dom = (() => {
@@ -114,7 +124,7 @@ const game = (() => {
 })();
 
 game.init();
-game.loop();
+// game.loop();
 
 // var spam = 'bacon';
 // var test = { spam };

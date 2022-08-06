@@ -55,18 +55,6 @@ const events = (() => {
 
 events.init();
 
-// const ship1 = Ship(1);
-// const ship2 = Ship(2);
-// const player1 = Player();
-// const player2 = Player();
-// player2.placeShip(ship1, 0);
-// player2.placeShip(ship2, 1);
-// player2.placeShip(ship2, 2);
-// player1.attack(player2, 0);
-// player1.attack(player2, 1);
-// player1.attack(player2, 2);
-// console.log(player2.allShipsSunk());
-
 const dom = (() => {
   const winner = (player) => {
     const msg = document.querySelector('#msg');
@@ -79,10 +67,12 @@ const game = (() => {
   const player1 = Player('Player 1');
   const player2 = Player('Player 2');
   const init = () => {
-    const ship1 = Ship(1);
-    const ship2 = Ship(1);
+    const ship1 = Ship(2);
+    const ship2 = Ship(2);
     player1.placeShip(ship1, 0);
+    player1.placeShip(ship1, 1);
     player2.placeShip(ship2, 0);
+    player2.placeShip(ship2, 1);
   };
   let current = player1;
   let enemy = player2;
@@ -99,13 +89,13 @@ const game = (() => {
   // ! Individual player turn
   const turn = () => {
     alert(`${current.name}'s turn`);
-    console.log('current', current.name);
     let attack = prompt('Please enter an attack coordinate');
-    if (current.attack(enemy, Number(attack))) {
+    while (current.attack(enemy, Number(attack))) {
       if (enemy.allShipsSunk()) {
         playing = false;
         return;
       }
+      attack = prompt('Please enter an attack coordinate');
     }
     switchSides();
   };
@@ -120,7 +110,7 @@ const game = (() => {
   const over = (module) => {
     module.winner(current);
   };
-  return { init, turn, loop, switchSides };
+  return { init, loop };
 })();
 
 game.init();

@@ -15,15 +15,39 @@ body {
   text-align: center;
 }
 
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  z-index: 2;
+}
+
+.board1,
+.board2 {
+  position: relative;
+  top: 0%;
+  left: 0%;
+  z-index: 2;
+}
+
+.overlay,
+.grid {
+  width: 22.5rem;
+  height: 22.5rem;
+}
+
 .container {
+  position: relative;
+}
+
+.board {
   outline: 1px solid black;
   padding: 1rem;
 }
 
 .grid {
   display: grid;
-  width: 22.5rem;
-  height: 22.5rem;
 }
 
 .block {

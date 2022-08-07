@@ -31,6 +31,19 @@ const create = (() => {
 create.init();
 
 const dom = (() => {
+  const overlay = (current) => {
+    if (current.name === 'Player 1') {
+      const currentOverlay = document.querySelector('#board1-overlay');
+      const enemyOverlay = document.querySelector('#board2-overlay');
+      currentOverlay.classList.add('overlay');
+      enemyOverlay.classList.remove('overlay');
+    } else if (current.name === 'Player 2') {
+      const currentOverlay = document.querySelector('#board2-overlay');
+      const enemyOverlay = document.querySelector('#board1-overlay');
+      currentOverlay.classList.add('overlay');
+      enemyOverlay.classList.remove('overlay');
+    }
+  };
   const turn = (player) => {
     const turn = document.querySelector('#turn');
     turn.innerHTML = `${player.name}'s turn`;
@@ -39,7 +52,7 @@ const dom = (() => {
     const msg = document.querySelector('#msg');
     msg.innerHTML = `${player.name} is the winner`;
   };
-  return { turn, winner };
+  return { overlay, turn, winner };
 })();
 
 const events = (() => {
@@ -113,6 +126,7 @@ const game = (() => {
     // player2.placeShip(ship2, 1);
     // ! Label to indicate player's turn
     dom.turn(current);
+    dom.overlay(current);
   };
   let current = player1;
   let enemy = player2;
@@ -131,10 +145,7 @@ const game = (() => {
   };
   // ! Individual player turn
   const turn = (coordinate) => {
-    console.log(current.name, current.totalShipUnits());
-    console.log(enemy.name, enemy.totalShipUnits());
     // let attack = prompt('Please enter an attack coordinate');
-    // if (current.attack(enemy, coordinate)) {
     if (current.attack(enemy, coordinate)) {
       console.log(`HIT!!! ${enemy.name}'s direct hits:`, enemy.hits);
       console.log(enemy.allShipsSunk());
@@ -148,6 +159,7 @@ const game = (() => {
       console.log(`MISS!!! ${enemy.name}'s empty spots:`, enemy.misses);
     }
     switchSides();
+    dom.overlay(current);
   };
   // ! Main game loop
   // const loop = () => {
@@ -156,6 +168,13 @@ const game = (() => {
   //   }
   //   over(dom);
   // };
+
+  // const overlay = () => {
+  //   const overlay = document.querySelector('#overlay');
+  //   overlay.classList.add('overlay');
+  // };
+  // ! Overlay
+
   // ! Endgame
   const over = (module) => {
     module.winner(current);

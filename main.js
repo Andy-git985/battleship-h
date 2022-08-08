@@ -159,7 +159,7 @@ const game = (() => {
       console.log(`MISS!!! ${enemy.name}'s empty spots:`, enemy.misses);
     }
     switchSides();
-    dom.overlay(current);
+    overlay(dom);
   };
   // ! Main game loop
   // const loop = () => {
@@ -174,6 +174,9 @@ const game = (() => {
   //   overlay.classList.add('overlay');
   // };
   // ! Overlay
+  const overlay = (module) => {
+    module.overlay(current);
+  };
 
   // ! Endgame
   const over = (module) => {

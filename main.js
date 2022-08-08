@@ -180,8 +180,14 @@ const game = (() => {
   const over = (module) => {
     module.winner(current);
   };
-  return { init, attack, turn };
+  return { init, players, attack, turn };
 })();
 
 game.init();
 // game.loop();
+
+const players = () => {
+  console.log(game.players);
+};
+
+players();

@@ -45,15 +45,32 @@ const dom = (() => {
       enemyOverlay.classList.remove('overlay');
     }
   };
-  const hits = (current) => {
-    if (current.name === 'Player 1') {
+  // ! const hitElement function reuse code
+  const hits = (enemy) => {
+    if (enemy.name === 'Player 2') {
+      const boardTwoProgess = document.querySelectorAll('#board2 .block');
+      console.log('whole thing', boardTwoProgess);
+      const hits = enemy.hits;
+      console.log('hits', hits);
+      for (const e of boardTwoProgess) {
+        console.log('What is e here', e);
+        console.log(e.dataset.index);
+        if (hits.includes(e.dataset.index)) {
+          console.log('element', e);
+
+          e.innerHTML = 'X';
+          e.classList.add('hit');
+        }
+      }
+    } else if (enemy.name === 'Player 1') {
       const boardOneProgess = document.querySelectorAll('#board1 .block');
-      console.log(boardOneProgess);
-    } else if (current.name === 'Player 2') {
-      const currentOverlay = document.querySelector('#board2-overlay');
-      const enemyOverlay = document.querySelector('#board1-overlay');
-      currentOverlay.classList.add('overlay');
-      enemyOverlay.classList.remove('overlay');
+      const hits = enemy.hits;
+      for (const e of boardOneProgess) {
+        if (hits.includes(e)) {
+          e.textContent = 'X';
+          e.classList.add('hit');
+        }
+      }
     }
   };
   const misses = () => {
@@ -79,14 +96,13 @@ const dom = (() => {
   };
   return { overlay, hits, turn, winner };
 })();
-
 const events = (() => {
   const board1 = () => {
     const playerOneBlocks = document.querySelectorAll('#board1 .block');
     playerOneBlocks.forEach((b) =>
       b.addEventListener('click', (e) => {
         const coordinate = Number(e.target.dataset.index);
-        console.log(coordinate);
+        // console.log(coordinate);
         game.attack(coordinate);
         // game.attack(attacker, receiver, coordinate);
         // game.player2.attack(game.player1, Number(e.target.dataset.index));
@@ -98,7 +114,7 @@ const events = (() => {
     playerTwoBlocks.forEach((b) =>
       b.addEventListener('click', (e) => {
         const coordinate = Number(e.target.dataset.index);
-        console.log(coordinate);
+        // console.log(coordinate);
         game.attack(coordinate);
         // game.attack(attacker, receiver, coordinate);
         // game.player1.attack(game.player2, Number(e.target.dataset.index));
@@ -146,6 +162,7 @@ const game = (() => {
     // player1.placeShip(ship1, 1);
     player2.placeShip(ship2, 0);
     // player2.placeShip(ship2, 1);
+
     // ! Label to indicate player's turn
     dom.turn(current);
     dom.overlay(current);
@@ -169,8 +186,9 @@ const game = (() => {
   const turn = (coordinate) => {
     // let attack = prompt('Please enter an attack coordinate');
     if (current.attack(enemy, coordinate)) {
-      console.log(`HIT!!! ${enemy.name}'s direct hits:`, enemy.hits);
-      console.log(enemy.allShipsSunk());
+      dom.hits(enemy);
+      // console.log(`HIT!!! ${enemy.name}'s direct hits:`, enemy.hits);
+      // console.log(enemy.allShipsSunk());
       if (enemy.allShipsSunk()) {
         playing = false;
         over(dom);
@@ -209,9 +227,3 @@ const game = (() => {
 
 game.init();
 // game.loop();
-
-const players = () => {
-  console.log(game.players);
-};
-
-players();

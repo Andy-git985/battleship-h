@@ -32,6 +32,7 @@ create.init();
 
 const dom = (() => {
   const overlay = (current) => {
+    // ! Dependent on player name
     if (current.name === 'Player 1') {
       const currentOverlay = document.querySelector('#board1-overlay');
       const enemyOverlay = document.querySelector('#board2-overlay');
@@ -117,6 +118,7 @@ events.init();
 const game = (() => {
   const player1 = Player('Player 1');
   const player2 = Player('Player 2');
+  const players = [player1, player2];
   const init = () => {
     const ship1 = Ship(2);
     const ship2 = Ship(2);

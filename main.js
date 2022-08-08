@@ -45,12 +45,10 @@ const dom = (() => {
       enemyOverlay.classList.remove('overlay');
     }
   };
-  const hits = () => {
+  const hits = (current) => {
     if (current.name === 'Player 1') {
-      const currentOverlay = document.querySelector('#board1-overlay');
-      const enemyOverlay = document.querySelector('#board2-overlay');
-      currentOverlay.classList.add('overlay');
-      enemyOverlay.classList.remove('overlay');
+      const boardOneProgess = document.querySelectorAll('#board1 .block');
+      console.log(boardOneProgess);
     } else if (current.name === 'Player 2') {
       const currentOverlay = document.querySelector('#board2-overlay');
       const enemyOverlay = document.querySelector('#board1-overlay');
@@ -79,7 +77,7 @@ const dom = (() => {
     const msg = document.querySelector('#msg');
     msg.innerHTML = `${player.name} is the winner`;
   };
-  return { overlay, turn, winner };
+  return { overlay, hits, turn, winner };
 })();
 
 const events = (() => {

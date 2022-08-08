@@ -61,8 +61,6 @@ const events = (() => {
     const playerOneBlocks = document.querySelectorAll('#board1 .block');
     playerOneBlocks.forEach((b) =>
       b.addEventListener('click', (e) => {
-        const attacker = game.player2;
-        const receiver = game.player2;
         const coordinate = Number(e.target.dataset.index);
         console.log(coordinate);
         game.attack(coordinate);
@@ -75,8 +73,6 @@ const events = (() => {
     const playerTwoBlocks = document.querySelectorAll('#board2 .block');
     playerTwoBlocks.forEach((b) =>
       b.addEventListener('click', (e) => {
-        const attacker = game.player1;
-        const receiver = game.player1;
         const coordinate = Number(e.target.dataset.index);
         console.log(coordinate);
         game.attack(coordinate);

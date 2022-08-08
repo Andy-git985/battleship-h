@@ -45,6 +45,32 @@ const dom = (() => {
       enemyOverlay.classList.remove('overlay');
     }
   };
+  const hits = () => {
+    if (current.name === 'Player 1') {
+      const currentOverlay = document.querySelector('#board1-overlay');
+      const enemyOverlay = document.querySelector('#board2-overlay');
+      currentOverlay.classList.add('overlay');
+      enemyOverlay.classList.remove('overlay');
+    } else if (current.name === 'Player 2') {
+      const currentOverlay = document.querySelector('#board2-overlay');
+      const enemyOverlay = document.querySelector('#board1-overlay');
+      currentOverlay.classList.add('overlay');
+      enemyOverlay.classList.remove('overlay');
+    }
+  };
+  const misses = () => {
+    if (current.name === 'Player 1') {
+      const currentOverlay = document.querySelector('#board1-overlay');
+      const enemyOverlay = document.querySelector('#board2-overlay');
+      currentOverlay.classList.add('overlay');
+      enemyOverlay.classList.remove('overlay');
+    } else if (current.name === 'Player 2') {
+      const currentOverlay = document.querySelector('#board2-overlay');
+      const enemyOverlay = document.querySelector('#board1-overlay');
+      currentOverlay.classList.add('overlay');
+      enemyOverlay.classList.remove('overlay');
+    }
+  };
   const turn = (player) => {
     const turn = document.querySelector('#turn');
     turn.innerHTML = `${player.name}'s turn`;

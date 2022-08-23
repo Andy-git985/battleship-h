@@ -12,7 +12,7 @@ const Ship = (length) => {
 };
 
 const Gameboard = () => {
-  const board = Array(9).fill('');
+  const board = Array(100).fill('');
   const hits = [];
   const allHits = () => hits.length;
   const misses = [];

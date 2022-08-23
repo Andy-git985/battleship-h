@@ -105,6 +105,7 @@ const events = (() => {
     playerOneBlocks.forEach((b) =>
       b.addEventListener('click', (e) => {
         const coordinate = Number(e.target.dataset.index);
+        console.log(coordinate);
         game.attack(coordinate);
       })
     );

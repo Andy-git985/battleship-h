@@ -14,8 +14,8 @@ const create = (() => {
   };
   const generateGridTemplate = (elem) => {
     const numOfRowCol = Math.sqrt(number);
-    elem.style.gridTemplateRows = `repeat(${numOfRowCol}, auto)`;
-    elem.style.gridTemplateColumns = `repeat(${numOfRowCol}, auto)`;
+    elem.style.gridTemplateRows = `repeat(${numOfRowCol}, 42px)`;
+    elem.style.gridTemplateColumns = `repeat(${numOfRowCol}, 42px)`;
   };
 
   const init = () => {
@@ -142,7 +142,6 @@ events.init();
 const game = (() => {
   const player1 = Player('Player 1');
   const player2 = Player('Player 2');
-  const players = [player1, player2];
   const init = () => {
     // const ship1 = Ship(2);
     // const ship2 = Ship(2);
@@ -256,7 +255,6 @@ const game = (() => {
   const turn = (coordinate) => {
     if (current.attack(enemy, coordinate)) {
       dom.hits(enemy);
-
       if (enemy.allShipsSunk()) {
         // playing = false;
         over(dom);
@@ -290,7 +288,7 @@ const game = (() => {
   const over = (module) => {
     module.winner(current);
   };
-  return { init, players, attack, turn };
+  return { init, attack, turn };
 })();
 
 game.init();

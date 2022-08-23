@@ -40,8 +40,8 @@ body {
 
 .overlay,
 .grid {
-  width: 22.5rem;
-  height: 22.5rem;
+  width: 420px;
+  height: 420px;
 }
 
 .container {

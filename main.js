@@ -49,15 +49,9 @@ const dom = (() => {
   const hits = (enemy) => {
     if (enemy.name === 'Player 2') {
       const boardTwoProgess = document.querySelectorAll('#board2 .block');
-      console.log('whole thing', boardTwoProgess);
       const hits = enemy.hits;
-      console.log('hits', hits);
       for (const e of boardTwoProgess) {
-        console.log('What is e here', e);
-        console.log(e.dataset.index);
-        if (hits.includes(e.dataset.index)) {
-          console.log('element', e);
-
+        if (hits.includes(Number(e.dataset.index))) {
           e.innerHTML = 'X';
           e.classList.add('hit');
         }
@@ -66,24 +60,32 @@ const dom = (() => {
       const boardOneProgess = document.querySelectorAll('#board1 .block');
       const hits = enemy.hits;
       for (const e of boardOneProgess) {
-        if (hits.includes(e)) {
+        if (hits.includes(Number(e.dataset.index))) {
           e.textContent = 'X';
           e.classList.add('hit');
         }
       }
     }
   };
-  const misses = () => {
-    if (current.name === 'Player 1') {
-      const currentOverlay = document.querySelector('#board1-overlay');
-      const enemyOverlay = document.querySelector('#board2-overlay');
-      currentOverlay.classList.add('overlay');
-      enemyOverlay.classList.remove('overlay');
-    } else if (current.name === 'Player 2') {
-      const currentOverlay = document.querySelector('#board2-overlay');
-      const enemyOverlay = document.querySelector('#board1-overlay');
-      currentOverlay.classList.add('overlay');
-      enemyOverlay.classList.remove('overlay');
+  const misses = (enemy) => {
+    if (enemy.name === 'Player 2') {
+      const boardTwoProgess = document.querySelectorAll('#board2 .block');
+      const misses = enemy.misses;
+      for (const e of boardTwoProgess) {
+        if (misses.includes(Number(e.dataset.index))) {
+          e.innerHTML = 'Miss';
+          e.classList.add('miss');
+        }
+      }
+    } else if (enemy.name === 'Player 1') {
+      const boardOneProgess = document.querySelectorAll('#board1 .block');
+      const misses = enemy.misses;
+      for (const e of boardOneProgess) {
+        if (misses.includes(Number(e.dataset.index))) {
+          e.textContent = 'Miss';
+          e.classList.add('miss');
+        }
+      }
     }
   };
   const turn = (player) => {
@@ -94,8 +96,9 @@ const dom = (() => {
     const msg = document.querySelector('#msg');
     msg.innerHTML = `${player.name} is the winner`;
   };
-  return { overlay, hits, turn, winner };
+  return { overlay, hits, misses, turn, winner };
 })();
+
 const events = (() => {
   const board1 = () => {
     const playerOneBlocks = document.querySelectorAll('#board1 .block');
@@ -196,7 +199,7 @@ const game = (() => {
       }
       // attack = prompt('Please enter an attack coordinate');
     } else {
-      console.log(`MISS!!! ${enemy.name}'s empty spots:`, enemy.misses);
+      dom.misses(enemy);
     }
     switchSides();
     overlay(dom);

@@ -8,16 +8,42 @@
     <title>Drag test</title>
   </head>
   <body>
-    <div draggable="true" ondragstart="drag(event)" class="ship two"></div>
-    <div draggable="true" ondragstart="drag(event)" class="ship three"></div>
-    <div draggable="true" ondragstart="drag(event)" class="ship four"></div>
+    <!-- <img
+      src="image.png"
+      draggable="true"
+      ondragstart="drag(event)"
+      alt=""
+      id="drag1"
+    />
+    <img
+      src="image.png"
+      draggable="true"
+      ondragstart="drag(event)"
+      alt=""
+      id="drag1"
+    />
+    <div class="grid">
+      <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
 
+      <div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    </div> -->
+
+    <p draggable="true" ondragstart="dragWithCustomImage(event)">
+      Custom Image
+    </p>
+    <p draggable="true" ondragstart="drag(event)">
+      This text <strong>may</strong> be dragged.
+    </p>
+
+    <!-- Drop zone -->
     <div
-      id="drag-container"
-      class="grid"
-      ondrop="drop(event)"
-      ondragover="allowDrop(event)"
-    ></div>
+      id="drop_zone"
+      ondrop="dropHandler(event);"
+      ondragover="dragOverHandler(event);"
+    >
+      <p>Drag one or more files to this <i>drop zone</i>.</p>
+    </div>
+
     <script src="./drag.js"></script>
   </body>
 </html>

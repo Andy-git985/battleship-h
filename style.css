@@ -77,3 +77,27 @@ body {
 .four {
   width: calc(42px * 4);
 }
+
+/* #target {
+  width: 100px;
+  height: 35px;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid black;
+} */
+
+#div1,
+#div2 {
+  float: left;
+  width: 250px;
+  height: 250px;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+#drop_zone {
+  border: 5px solid blue;
+  width: 200px;
+  height: 100px;
+}

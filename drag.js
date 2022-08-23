@@ -1,28 +1,37 @@
-function allowDrop(ev) {
-  ev.preventDefault();
-}
+// function allowDrop(ev) {
+//   ev.preventDefault();
+// }
 
+// function drag(ev) {
+//   ev.dataTransfer.setData('text', ev.target.id);
+// }
+
+// function drop(ev) {
+//   ev.preventDefault();
+//   var data = ev.dataTransfer.getData('text');
+//   ev.target.appendChild(document.getElementById(data));
+// }
+
+// ===========================
 function drag(ev) {
-  ev.dataTransfer.setData('text', ev.target.id);
+  const text = ev.target.textContent;
+  ev.dataTransfer.setData('text', text);
 }
 
-function drop(ev) {
+function dragOverHandler(ev) {
+  // const isLink = ev.dataTransfer.types.includes('text/uri-list');
+  // if (isLink) {
+  //   ev.preventDefault();
+  // }
+  // return false;
   ev.preventDefault();
-  var data = ev.dataTransfer.getData('text');
-  ev.target.appendChild(document.getElementById(data));
 }
 
-const generateGrid = () => {
-  const dragContainer = document.querySelector('#drag-container');
-  for (let i = 0; i < 100; i++) {
-    const block = document.createElement('div');
-    block.classList.add('block');
-    block.setAttribute(`data-index`, i);
-    dragContainer.appendChild(block);
-  }
+function dropHandler(ev) {
+  console.log('File(s) dropped');
+  ev.preventDefault();
 
-  dragContainer.style.gridTemplateRows = `repeat(10, 42px)`;
-  dragContainer.style.gridTemplateColumns = `repeat(10, 42px)`;
-};
-
-generateGrid();
+  const data = ev.dataTransfer.getData('text/plain');
+  console.log(data);
+  ev.target.textContent = data;
+}

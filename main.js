@@ -88,9 +88,9 @@ const dom = (() => {
       }
     }
   };
-  const turn = (player) => {
+  const turn = (current) => {
     const turn = document.querySelector('#turn');
-    turn.innerHTML = `${player.name}'s turn`;
+    turn.innerHTML = `${current.name}'s turn`;
   };
   const winner = (player) => {
     const msg = document.querySelector('#msg');
@@ -105,10 +105,7 @@ const events = (() => {
     playerOneBlocks.forEach((b) =>
       b.addEventListener('click', (e) => {
         const coordinate = Number(e.target.dataset.index);
-        // console.log(coordinate);
         game.attack(coordinate);
-        // game.attack(attacker, receiver, coordinate);
-        // game.player2.attack(game.player1, Number(e.target.dataset.index));
       })
     );
   };
@@ -117,21 +114,10 @@ const events = (() => {
     playerTwoBlocks.forEach((b) =>
       b.addEventListener('click', (e) => {
         const coordinate = Number(e.target.dataset.index);
-        // console.log(coordinate);
         game.attack(coordinate);
-        // game.attack(attacker, receiver, coordinate);
-        // game.player1.attack(game.player2, Number(e.target.dataset.index));
       })
     );
   };
-  // const blocks = () => {
-  //   const blocks = document.querySelectorAll('.block');
-  //   blocks.forEach((b) =>
-  //     b.addEventListener('click', (e) => {
-  //       game.turn(Number(e.target.dataset.index));
-  //     })
-  //   );
-  // };
   const refresh = () => {
     const refresh = document.querySelector('#refresh');
     refresh.addEventListener('click', () => window.location.reload());
@@ -140,14 +126,12 @@ const events = (() => {
   const init = () => {
     board1();
     board2();
-    // blocks();
     refresh();
   };
 
   return {
     board1,
     board2,
-    // blocks,
     init,
   };
 })();
@@ -162,9 +146,9 @@ const game = (() => {
     const ship1 = Ship(2);
     const ship2 = Ship(2);
     player1.placeShip(ship1, 0);
-    // player1.placeShip(ship1, 1);
+    player1.placeShip(ship1, 1);
     player2.placeShip(ship2, 0);
-    // player2.placeShip(ship2, 1);
+    player2.placeShip(ship2, 1);
 
     // ! Label to indicate player's turn
     dom.turn(current);
@@ -187,22 +171,20 @@ const game = (() => {
   };
   // ! Individual player turn
   const turn = (coordinate) => {
-    // let attack = prompt('Please enter an attack coordinate');
     if (current.attack(enemy, coordinate)) {
       dom.hits(enemy);
-      // console.log(`HIT!!! ${enemy.name}'s direct hits:`, enemy.hits);
-      // console.log(enemy.allShipsSunk());
+
       if (enemy.allShipsSunk()) {
         playing = false;
         over(dom);
         return;
       }
-      // attack = prompt('Please enter an attack coordinate');
     } else {
       dom.misses(enemy);
+      switchSides();
+      dom.turn(current);
+      overlay(dom);
     }
-    switchSides();
-    overlay(dom);
   };
   // ! Main game loop
   // const loop = () => {

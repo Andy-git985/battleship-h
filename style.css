@@ -58,5 +58,22 @@ body {
 }
 
 .block {
-  border: 1px solid black;
+  outline: 1px solid black;
+}
+
+/* ship items */
+.ship {
+  background-color: lightblue;
+  height: 42px;
+  outline: 1px solid black;
+}
+
+.two {
+  width: calc(42px * 2);
+}
+.three {
+  width: calc(42px * 3);
+}
+.four {
+  width: calc(42px * 4);
 }

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Drag test</title>
+  </head>
+  <body>
+    <div draggable="true" ondragstart="drag(event)" class="ship two"></div>
+    <div draggable="true" ondragstart="drag(event)" class="ship three"></div>
+    <div draggable="true" ondragstart="drag(event)" class="ship four"></div>
+
+    <div
+      id="drag-container"
+      class="grid"
+      ondrop="drop(event)"
+      ondragover="allowDrop(event)"
+    ></div>
+    <script src="./drag.js"></script>
+  </body>
+</html>
